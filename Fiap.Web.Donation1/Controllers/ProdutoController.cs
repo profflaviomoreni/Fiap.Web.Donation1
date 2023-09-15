@@ -13,7 +13,7 @@ namespace Fiap.Web.Donation1.Controllers
             // Acesso fake ao banco dados
             // SELECT * FROM produtos;
 
-            produtos = new List<ProdutoModel>{ 
+            produtos = new List<ProdutoModel>{
                 new ProdutoModel()
                 {
                     ProdutoId = 1,
@@ -46,7 +46,7 @@ namespace Fiap.Web.Donation1.Controllers
                     Disponivel = false,
                     DataExpiracao = DateTime.Now,
                 },
-            };        
+            };
 
         }
 
@@ -54,32 +54,58 @@ namespace Fiap.Web.Donation1.Controllers
         [HttpGet]
         public IActionResult Index() //Lista todos os produtos
         {
-            //Consultar o banco de dados;
-
-            //TempData["Produtos"] = produtos;
-
-            ViewBag.Produtos = produtos;
-
-            return View();
+            return View(produtos);
         }
 
         [HttpGet]
         public IActionResult Novo()
         {
-            return View();
+            return View(new ProdutoModel());
         }
 
         [HttpPost]
         public IActionResult Novo(ProdutoModel produtoModel) {
-            // Gravando o produto no banco de dados
-            // Insert into produtos  values ...
 
-            //ViewBag.Mensagem = $"{produtoModel.Nome} cadastrado com sucesso";
-            TempData["Mensagem"] = $"{produtoModel.Nome} cadastrado com sucesso";
-
-            return RedirectToAction("Index");
+            if (string.IsNullOrEmpty(produtoModel.Nome))
+            {
+                ViewBag.Mensagem = "O campo nome é requerido";
+                return View(produtoModel);
+            }
+            else
+            {
+                // INSERT INTO PRODUTO VALUES ...
+                TempData["Mensagem"] = $"{produtoModel.Nome} cadastrado com sucesso";
+                return RedirectToAction("Index");
+            }
         }
 
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            // SELECT * FROM produto WHERE ProdutoId = {id};
+            var produto = produtos[id - 1];
+
+            return View(produto);
+        }
+
+
+        [HttpPost]
+        public IActionResult Editar(ProdutoModel produtoModel)
+        {
+            if ( string.IsNullOrEmpty(produtoModel.Nome) )
+            {
+                ViewBag.Mensagem = "O campo nome é requerido";
+                return View(produtoModel);
+
+            } else
+            {
+                // UPDATE produto SET ... WHERE ProdutoId = produtoModel.ProdutoId
+                TempData["Mensagem"] = $"{produtoModel.Nome} alterado com sucesso";
+
+                return RedirectToAction("Index");
+            }
+        }
 
     }
 }

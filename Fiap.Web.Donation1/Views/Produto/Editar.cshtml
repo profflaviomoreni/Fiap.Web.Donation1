@@ -1,6 +1,6 @@
 ﻿@model ProdutoModel
 
-<h1>Produto - Novo</h1>
+<h1>Produto - Editar</h1>
 
 
 <div class="container">
@@ -8,13 +8,12 @@
         <div class="col-lg-12">
             <div class="well">
 
-
-                @if (!string.IsNullOrEmpty(ViewBag.Mensagem))
-                {
+                @if( ! string.IsNullOrEmpty(ViewBag.Mensagem) ) {
                     <div class="alert alert-danger">@ViewBag.Mensagem</div>
                 }
 
-                <form action ="/Produto/Novo" method="post">
+                <form action ="/Produto/Editar" method="post">
+                    <input type="hidden" name="ProdutoId" value="@Model.ProdutoId" />
                     <div class="form-group">
                         <label>Nome:</label>
                         <input type="text" name="nome" value="@Model.Nome" class="form-control w-50" size="30" />
@@ -53,10 +52,10 @@
 
                     <hr class="hr" />
                     <input type="submit" value="Enviar" />
-                </form>
+                    </form>
             </div>
         </div>
     </div>
-    
+
 </div>
 
