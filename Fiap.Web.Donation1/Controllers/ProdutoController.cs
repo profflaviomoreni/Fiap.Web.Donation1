@@ -1,4 +1,6 @@
-﻿using Fiap.Web.Donation1.Models;
+﻿using Fiap.Web.Donation1.Data;
+using Fiap.Web.Donation1.Models;
+using Fiap.Web.Donation1.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiap.Web.Donation1.Controllers
@@ -6,54 +8,19 @@ namespace Fiap.Web.Donation1.Controllers
     public class ProdutoController : Controller
     {
 
-        private List<ProdutoModel> produtos;
+        private readonly ProdutoRepository produtoRepository;
 
-        public ProdutoController()
+        public ProdutoController(DataContext dataContext)
         {
-            // Acesso fake ao banco dados
-            // SELECT * FROM produtos;
-
-            produtos = new List<ProdutoModel>{
-                new ProdutoModel()
-                {
-                    ProdutoId = 1,
-                    Nome = "Iphone 11",
-                    TipoProdutoId = 1,
-                    Disponivel = true,
-                    DataExpiracao = DateTime.Now,
-                },
-                new ProdutoModel()
-                {
-                    ProdutoId = 2,
-                    Nome = "Iphone 12",
-                    TipoProdutoId = 2,
-                    Disponivel = true,
-                    DataExpiracao = DateTime.Now,
-                },
-                new ProdutoModel()
-                {
-                    ProdutoId = 3,
-                    Nome = "Iphone 13",
-                    TipoProdutoId = 1,
-                    Disponivel = true,
-                    DataExpiracao = DateTime.Now,
-                },
-                new ProdutoModel()
-                {
-                    ProdutoId = 4,
-                    Nome = "Iphone 14",
-                    TipoProdutoId = 1,
-                    Disponivel = false,
-                    DataExpiracao = DateTime.Now,
-                },
-            };
-
+            produtoRepository = new ProdutoRepository(dataContext);
         }
 
 
         [HttpGet]
         public IActionResult Index() //Lista todos os produtos
         {
+            var produtos = produtoRepository.FindAll();
+
             return View(produtos);
         }
 
@@ -73,7 +40,9 @@ namespace Fiap.Web.Donation1.Controllers
             }
             else
             {
-                // INSERT INTO PRODUTO VALUES ...
+                produtoModel.UsuarioId = 1;
+                produtoRepository.Insert(produtoModel);
+
                 TempData["Mensagem"] = $"{produtoModel.Nome} cadastrado com sucesso";
                 return RedirectToAction("Index");
             }
@@ -83,9 +52,7 @@ namespace Fiap.Web.Donation1.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            // SELECT * FROM produto WHERE ProdutoId = {id};
-            var produto = produtos[id - 1];
-
+            var produto = produtoRepository.FindById(id);
             return View(produto);
         }
 
@@ -100,7 +67,10 @@ namespace Fiap.Web.Donation1.Controllers
 
             } else
             {
-                // UPDATE produto SET ... WHERE ProdutoId = produtoModel.ProdutoId
+                produtoModel.DataCadastro = DateTime.Now;
+                produtoModel.UsuarioId = 1;
+                produtoRepository.Update(produtoModel);
+
                 TempData["Mensagem"] = $"{produtoModel.Nome} alterado com sucesso";
 
                 return RedirectToAction("Index");

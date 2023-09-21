@@ -1,9 +1,5 @@
 ﻿@model IList<ProdutoModel>
 
-@{
-    Layout = "_LayoutNoturno";
-}
-
 <h1>Meus produtos</h1>
 
 @if (!String.IsNullOrEmpty( (String) @TempData["Mensagem"]))
@@ -45,4 +41,8 @@
         
     </tbody>
 </table>
+
+@section Footer{
+    <label> - Disclaimer sobre o produto</label>
+}
 
