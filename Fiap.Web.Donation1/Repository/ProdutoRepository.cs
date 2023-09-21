@@ -32,8 +32,6 @@ namespace Fiap.Web.Donation1.Repository
         // Inserir
         public int Insert(ProdutoModel produtoModel)
         {
-            produtoModel.DataCadastro = DateTime.Now;
-
             dataContext.Produtos.Add(produtoModel);
             dataContext.SaveChanges();
             

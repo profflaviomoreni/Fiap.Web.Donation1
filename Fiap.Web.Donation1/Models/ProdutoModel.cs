@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Fiap.Web.Donation1.Models
 {
@@ -26,7 +27,8 @@ namespace Fiap.Web.Donation1.Models
         
         public double Valor { get; set; }
 
-        public DateTime DataCadastro { get; set; }
+
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         public DateTime DataExpiracao { get; set; }
 

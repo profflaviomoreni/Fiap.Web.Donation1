@@ -2,6 +2,7 @@
 using Fiap.Web.Donation1.Models;
 using Fiap.Web.Donation1.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Fiap.Web.Donation1.Controllers
 {
@@ -9,10 +10,12 @@ namespace Fiap.Web.Donation1.Controllers
     {
 
         private readonly ProdutoRepository produtoRepository;
+        private readonly TipoProdutoRepository tipoProdutoRepository;
 
         public ProdutoController(DataContext dataContext)
         {
             produtoRepository = new ProdutoRepository(dataContext);
+            tipoProdutoRepository = new TipoProdutoRepository(dataContext);
         }
 
 
@@ -52,8 +55,10 @@ namespace Fiap.Web.Donation1.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            var produto = produtoRepository.FindById(id);
-            return View(produto);
+            ComboTipoProduto();
+
+            var produtoModel = produtoRepository.FindById(id);
+            return View(produtoModel);
         }
 
 
@@ -62,12 +67,13 @@ namespace Fiap.Web.Donation1.Controllers
         {
             if ( string.IsNullOrEmpty(produtoModel.Nome) )
             {
+                ComboTipoProduto();
+
                 ViewBag.Mensagem = "O campo nome é requerido";
                 return View(produtoModel);
 
             } else
             {
-                produtoModel.DataCadastro = DateTime.Now;
                 produtoModel.UsuarioId = 1;
                 produtoRepository.Update(produtoModel);
 
@@ -77,5 +83,15 @@ namespace Fiap.Web.Donation1.Controllers
             }
         }
 
+
+
+        private void ComboTipoProduto()
+        {
+            var tiposProdutos = tipoProdutoRepository.FindAll();
+
+            var comboTipoProdutos = new SelectList(tiposProdutos, "TipoProdutoId", "Nome");
+
+            ViewBag.TipoProdutos = comboTipoProdutos;
+        }
     }
 }
