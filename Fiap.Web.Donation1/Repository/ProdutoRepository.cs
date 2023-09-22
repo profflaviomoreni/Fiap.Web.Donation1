@@ -1,5 +1,6 @@
 ﻿using Fiap.Web.Donation1.Data;
 using Fiap.Web.Donation1.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fiap.Web.Donation1.Repository
 {
@@ -19,6 +20,89 @@ namespace Fiap.Web.Donation1.Repository
 
             return produtos == null ? new List<ProdutoModel>() : produtos;
         }
+
+
+        public IList<ProdutoModel> FindAllWithTipo()
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include( p => p.TipoProduto) // INNER JOIN
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+
+        public IList<ProdutoModel> FindByNome(string nome)
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include(p => p.TipoProduto) // INNER JOIN
+                                .Where( p => p.Nome.ToLower().Contains(nome.ToLower()) )
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+
+        public IList<ProdutoModel> FindAllByDisponivel(bool disponivel)
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include(p => p.TipoProduto) // INNER JOIN
+                                .Where( p=> p.Disponivel == disponivel) // WHERE Disponivel = {disponivel}   
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+        public IList<ProdutoModel> FindAllDisponivelDoUsuario(bool disponivel, int usuarioId)
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include(p => p.TipoProduto) // INNER JOIN
+                                .Where(p => p.Disponivel == disponivel && p.UsuarioId == usuarioId ) // WHERE Disponivel = {disponivel}   
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+        public IList<ProdutoModel> FindAllDisponivelParaTroca(bool disponivel, int usuarioId)
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include(p => p.TipoProduto) // INNER JOIN
+                                .Where(p => p.Disponivel == disponivel && p.UsuarioId != usuarioId) // WHERE Disponivel = {disponivel}   
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+
+        public IList<ProdutoModel> FindAllWithTipoOrderByName()
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include(p => p.TipoProduto) // INNER JOIN
+                                .OrderByDescending(p => p.Nome) // ORDER BY
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+
+        public IList<ProdutoModel> FindAllWithTipoAndUsuario()
+        {
+            var produtos = dataContext
+                                .Produtos // SELECT * FROM Produtos
+                                .Include(p => p.TipoProduto) // INNER JOIN
+                                .Include(p => p.Usuario ) // INNER JOIN
+                                    .ToList();
+
+            return produtos == null ? new List<ProdutoModel>() : produtos;
+        }
+
+
 
         // Detalhe (Consulta por Id)
         public ProdutoModel FindById(int id)

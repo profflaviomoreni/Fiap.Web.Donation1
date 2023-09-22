@@ -12,6 +12,8 @@ namespace Fiap.Web.Donation1.Controllers
         private readonly ProdutoRepository produtoRepository;
         private readonly TipoProdutoRepository tipoProdutoRepository;
 
+        private readonly int UsuarioId = 1;
+
         public ProdutoController(DataContext dataContext)
         {
             produtoRepository = new ProdutoRepository(dataContext);
@@ -22,7 +24,10 @@ namespace Fiap.Web.Donation1.Controllers
         [HttpGet]
         public IActionResult Index() //Lista todos os produtos
         {
-            var produtos = produtoRepository.FindAll();
+            //var produtos = produtoRepository.FindAllWithTipoOrderByName();
+            //var produtos = produtoRepository.FindAllByDisponivel(false);
+            //var produtos = produtoRepository.FindAllDisponivelParaTroca(true, UsuarioId);
+            var produtos = produtoRepository.FindByNome("15");
 
             return View(produtos);
         }
@@ -43,7 +48,7 @@ namespace Fiap.Web.Donation1.Controllers
             }
             else
             {
-                produtoModel.UsuarioId = 1;
+                produtoModel.UsuarioId = UsuarioId;
                 produtoRepository.Insert(produtoModel);
 
                 TempData["Mensagem"] = $"{produtoModel.Nome} cadastrado com sucesso";
