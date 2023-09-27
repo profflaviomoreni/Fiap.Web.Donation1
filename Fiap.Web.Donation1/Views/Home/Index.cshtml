@@ -4,6 +4,16 @@
     <h1 class="display-4">Vitrine</h1>
     <hr />
 
+    @if (!String.IsNullOrEmpty((String)@TempData["Mensagem"]))
+    {
+        <div class="alert alert-warning" role="alert">@TempData["Mensagem"]</div>
+    }
+
+    @if (!String.IsNullOrEmpty((String)@TempData["Erro"]))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Erro"]</div>
+    }
+
     <div class="d-flex flex-wrap">
         @foreach( var produto in Model)
         {
