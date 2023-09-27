@@ -12,23 +12,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProdutoId1" />
             <div class="form-group">
-                <label asp-for="DataCriacao" class="control-label"></label>
-                <input asp-for="DataCriacao" class="form-control" />
-                <span asp-validation-for="DataCriacao" class="text-danger"></span>
+                <label class="control-label">Nome: @Model.ProdutoModel1.Nome</label>
             </div>
             <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <label class="control-label">@Model.ProdutoModel1.Descricao</label>
             </div>
             <div class="form-group">
-                <label asp-for="ProdutoId1" class="control-label"></label>
-                <select asp-for="ProdutoId1" class ="form-control" asp-items="ViewBag.ProdutoId1"></select>
+                <label class="control-label">@Model.ProdutoModel1.Valor</label>
             </div>
             <div class="form-group">
-                <label asp-for="ProdutoId2" class="control-label"></label>
-                <select asp-for="ProdutoId2" class ="form-control" asp-items="ViewBag.ProdutoId2"></select>
+                <label class="control-label">@Model.ProdutoModel1.SugestaoTroca</label>
             </div>
+            
+            <div class="form-group">
+                <label class="control-label">Selecione seu produto:</label>
+                <select asp-for="ProdutoId2" class="form-control" asp-items="ViewBag.MeusProdutos">
+                    <option value="0">Selecione seu produto</option>
+                </select>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
