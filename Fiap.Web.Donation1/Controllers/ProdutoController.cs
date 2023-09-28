@@ -1,20 +1,21 @@
 ﻿using Fiap.Web.Donation1.Data;
 using Fiap.Web.Donation1.Models;
 using Fiap.Web.Donation1.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Fiap.Web.Donation1.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutoController : BaseController
     {
 
         private readonly ProdutoRepository produtoRepository;
+
         private readonly TipoProdutoRepository tipoProdutoRepository;
 
-        private readonly int UsuarioId = 1;
-
-        public ProdutoController(DataContext dataContext)
+        public ProdutoController(DataContext dataContext, 
+                                IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             produtoRepository = new ProdutoRepository(dataContext);
             tipoProdutoRepository = new TipoProdutoRepository(dataContext);
@@ -24,10 +25,7 @@ namespace Fiap.Web.Donation1.Controllers
         [HttpGet]
         public IActionResult Index() //Lista todos os produtos
         {
-            //var produtos = produtoRepository.FindAllWithTipoOrderByName();
-            //var produtos = produtoRepository.FindAllByDisponivel(false);
-            //var produtos = produtoRepository.FindAllDisponivelParaTroca(true, UsuarioId);
-            var produtos = produtoRepository.FindByNome("15");
+            var produtos = produtoRepository.FindAllWithTipoOrderByName();
 
             return View(produtos);
         }
@@ -79,7 +77,7 @@ namespace Fiap.Web.Donation1.Controllers
 
             } else
             {
-                produtoModel.UsuarioId = 1;
+                produtoModel.UsuarioId = UsuarioId;
                 produtoRepository.Update(produtoModel);
 
                 TempData["Mensagem"] = $"{produtoModel.Nome} alterado com sucesso";

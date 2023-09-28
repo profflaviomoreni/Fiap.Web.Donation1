@@ -3,8 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fiap.Web.Donation1.Controllers
 {
-    public class ContatoController : Controller
+    public class ContatoController : BaseController
     {
+        public ContatoController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        {
+        }
+
         [HttpGet]
         public IActionResult Index()
         {

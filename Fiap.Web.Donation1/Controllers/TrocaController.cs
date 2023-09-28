@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Fiap.Web.Donation1.Controllers
 {
-    public class TrocaController : Controller
+    public class TrocaController : BaseController
     {
         private readonly ProdutoRepository produtoRepository;
 
@@ -15,9 +15,8 @@ namespace Fiap.Web.Donation1.Controllers
 
         private readonly TrocaService trocaService;
 
-        private readonly int UsuarioId = 1;
-
-        public TrocaController(DataContext dataContext)
+        public TrocaController(DataContext dataContext, 
+                               IHttpContextAccessor httpContextAccessor) : base (httpContextAccessor) 
         {
             produtoRepository = new ProdutoRepository(dataContext);
             trocaRepository = new TrocaRepository(dataContext);

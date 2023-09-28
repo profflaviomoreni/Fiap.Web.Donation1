@@ -10,11 +10,11 @@ using Fiap.Web.Donation1.Models;
 
 namespace Fiap.Web.Donation1.Controllers
 {
-    public class TipoProdutoController : Controller
+    public class TipoProdutoController : BaseController
     {
         private readonly DataContext _context;
 
-        public TipoProdutoController(DataContext context)
+        public TipoProdutoController(DataContext context, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _context = context;
         }

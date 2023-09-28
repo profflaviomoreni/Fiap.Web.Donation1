@@ -2,8 +2,12 @@
 
 namespace Fiap.Web.Donation1.Controllers
 {
-    public class MinhasTrocasController : Controller
+    public class MinhasTrocasController : BaseController
     {
+        public MinhasTrocasController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        {
+        }
+
         public IActionResult Index()
         {
             return View();
