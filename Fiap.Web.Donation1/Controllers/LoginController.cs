@@ -1,4 +1,5 @@
 ﻿using Fiap.Web.Donation1.Models;
+using Fiap.Web.Donation1.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -9,6 +10,8 @@ namespace Fiap.Web.Donation1.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            IProdutoRepository produtoRepository = new ProdutoRepository(null);
+
             return View(new UsuarioModel());
         }
 

@@ -1,4 +1,5 @@
 using Fiap.Web.Donation1.Data;
+using Fiap.Web.Donation1.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,9 @@ builder.Services.AddDbContext<DataContext>( options =>
 );
 
 builder.Services.AddSession();
+
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepositoryXml>();
+
 
 var app = builder.Build();
 

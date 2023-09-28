@@ -10,14 +10,17 @@ namespace Fiap.Web.Donation1.Controllers
     public class ProdutoController : BaseController
     {
 
-        private readonly ProdutoRepository produtoRepository;
-
         private readonly TipoProdutoRepository tipoProdutoRepository;
 
+        private readonly IProdutoRepository produtoRepository;
+
+        
+
         public ProdutoController(DataContext dataContext, 
+                                IProdutoRepository prodRepository,  
                                 IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            produtoRepository = new ProdutoRepository(dataContext);
+            produtoRepository = prodRepository;
             tipoProdutoRepository = new TipoProdutoRepository(dataContext);
         }
 

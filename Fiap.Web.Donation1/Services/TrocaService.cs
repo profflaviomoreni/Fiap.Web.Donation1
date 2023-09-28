@@ -17,6 +17,7 @@ namespace Fiap.Web.Donation1.Services
 
         public void TrocarProdutos(Models.TrocaModel trocaModel)
         {
+
             var produto1 = produtoRepository.FindById(trocaModel.ProdutoId1);
             var produto2 = produtoRepository.FindById(trocaModel.ProdutoId2);
 

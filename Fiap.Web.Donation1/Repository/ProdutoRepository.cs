@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fiap.Web.Donation1.Repository
 {
-    public class ProdutoRepository
+    public class ProdutoRepository : IProdutoRepository
     {
 
         private readonly DataContext dataContext;
