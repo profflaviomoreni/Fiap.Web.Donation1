@@ -16,7 +16,7 @@ builder.Services.AddDbContext<DataContext>( options =>
 
 builder.Services.AddSession();
 
-builder.Services.AddScoped<IProdutoRepository, ProdutoRepositoryXml>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
 
 var app = builder.Build();

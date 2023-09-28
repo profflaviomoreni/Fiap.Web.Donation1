@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Web.Donation1", "Fiap.Web.Donation1\Fiap.Web.Donation1.csproj", "{5473CFF8-34BC-4BCF-A481-7AB128A26951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Web.Donation1", "Fiap.Web.Donation1\Fiap.Web.Donation1.csproj", "{5473CFF8-34BC-4BCF-A481-7AB128A26951}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Web.Donation1Test", "Fiap.Web.Donation1Test\Fiap.Web.Donation1Test.csproj", "{F9FED5CA-3456-4AF7-9A6B-91FF1E64D2AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5473CFF8-34BC-4BCF-A481-7AB128A26951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5473CFF8-34BC-4BCF-A481-7AB128A26951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5473CFF8-34BC-4BCF-A481-7AB128A26951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9FED5CA-3456-4AF7-9A6B-91FF1E64D2AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9FED5CA-3456-4AF7-9A6B-91FF1E64D2AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9FED5CA-3456-4AF7-9A6B-91FF1E64D2AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9FED5CA-3456-4AF7-9A6B-91FF1E64D2AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
